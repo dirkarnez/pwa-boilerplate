@@ -12,3 +12,5 @@ pwa-boilerplate
 
 ### Reference
 - [Make it installable](https://web.dev/codelab-make-installable/)
+- [**Making PWAs work offline with Service workers - Progressive web apps (PWAs) | MDN**](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Offline_Service_workers)
+    - todo
