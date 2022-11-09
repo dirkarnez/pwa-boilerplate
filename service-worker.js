@@ -26,13 +26,13 @@ self.addEventListener('activate', (event) => {
 //     }
     
     
-      caches.keys().then(function(cacheNames) {
-        cacheNames.forEach(function(cacheName) {
-//           if (cacheName !== version) {
-//           }
-          caches.delete(cacheName);
-        });
-      });
+//       caches.keys().then(function(cacheNames) {
+//         cacheNames.forEach(function(cacheName) {
+// //           if (cacheName !== version) {
+// //           }
+//           caches.delete(cacheName);
+//         });
+//       });
   })());
 
   // Tell the active service worker to take control of the page immediately.
