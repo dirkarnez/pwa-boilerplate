@@ -45,6 +45,7 @@ self.addEventListener('fetch', function(event) {
   if (event.request.mode === 'navigate') {
     event.respondWith((async () => {
       const cache = await caches.open(CACHE_NAME);
+      
       try {
 //         const preloadResponse = await event.preloadResponse;
 //         if (preloadResponse) {
@@ -52,6 +53,10 @@ self.addEventListener('fetch', function(event) {
 //         }
         
         const networkResponse = await fetch(event.request);
+        const cachedResponse = await cache.match(event.request);
+        if (cachedResponse) {
+             cache.delete(event.request);
+        }
         cache.put(event.request, networkResponse.clone());
         return networkResponse;
       } catch (error) {
