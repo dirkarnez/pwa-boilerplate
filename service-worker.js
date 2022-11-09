@@ -19,6 +19,12 @@ self.addEventListener('install', function(event) {
 self.addEventListener('activate', (event) => {
   console.log('[ServiceWorker] Activate');
   event.waitUntil((async () => {
+      const cache = await caches.open(CACHE_NAME);
+      // Setting {cache: 'reload'} in the new request will ensure that the response
+      // isn't fulfilled from the HTTP cache; i.e., it will be from the network.
+      await cache.addAll([
+        new Request(OFFLINE_URL, {cache: 'reload'})
+      ]);
     // Enable navigation preload if it's supported.
     // See https://developers.google.com/web/updates/2017/02/navigation-preload
 //     if ('navigationPreload' in self.registration) {
