@@ -34,20 +34,17 @@ self.addEventListener('fetch', function(event) {
   // console.log('[Service Worker] Fetch', event.request.url);
   if (event.request.mode === 'navigate') {
     event.respondWith((async () => {
-      const cache = await caches.open(CACHE_NAME);
-
       try {
-        const preloadResponse = await event.preloadResponse;
-        if (preloadResponse) {
-          return preloadResponse;
-        }
-
         const networkResponse = await fetch(event.request);
         cache.put(event.request, networkResponse.clone());
         return networkResponse;
       } catch (error) {
         console.log('[Service Worker] Fetch failed; returning offline page instead.', error);
-
+        const preloadResponse = await event.preloadResponse;
+        if (preloadResponse) {
+          return preloadResponse;
+        }
+        const cache = await caches.open(CACHE_NAME);
         const cachedResponse = await cache.match(OFFLINE_URL);
         return cachedResponse;
       }
